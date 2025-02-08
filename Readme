@@ -1,0 +1,71 @@
+# Project Mr. Market
+
+## Overview
+Project Mr. Market is an AI-powered financial anomaly detection system. Every day, the system predicts whether the last trading day was **"normal" or "abnormal"** compared to historical trends using a **multivariate AI model**. This helps traders and investors detect unusual market movements based on various financial indicators.
+
+## Features
+- **Daily Market Anomaly Detection**: Classifies the last trading day as normal or abnormal.
+- **Multivariate Analysis**: Uses multiple financial indicators, including stock indexes, commodities, forex, and bond yields.
+- **Historical Data Training**: Trained on years of financial data to detect patterns.
+- **Automated Data Fetching**: Pulls real-time and historical data from financial APIs.
+- **Web Dashboard**: Displays market insights and predictions.
+
+## Data Sources
+The model is trained and updated using:
+- **Stock Market Indexes**: S&P 500, NASDAQ, Dow Jones
+- **Commodities**: Crude Oil, Gold
+- **Forex Pairs**: EUR/USD, GBP/USD
+- **Bonds & Interest Rates**: U.S. Treasury 10-Year Yield
+- **Volatility Index**: VIX
+
+## Tech Stack
+- **Backend**: Python (FastAPI, Flask)
+- **AI Model**: Machine Learning (Isolation Forest, Autoencoders, LSTMs)
+- **Data**: Yahoo Finance API, Alpha Vantage, Quandl, FRED API
+- **Frontend**: HTML, CSS, JavaScript
+- **Database**: PostgreSQL / MongoDB
+- **Deployment**: AWS Lambda, EC2, or Firebase
+
+## Setup Instructions
+### 1. Clone the Repository
+```sh
+ git clone https://github.com/yourusername/project-mr-market.git
+ cd project-mr-market
+```
+
+### 2. Install Dependencies
+```sh
+pip install -r requirements.txt
+```
+
+### 3. Fetch Historical Data
+Run the script to download training data:
+```sh
+python fetch_data.py
+```
+
+### 4. Train the AI Model
+```sh
+python train_model.py
+```
+
+### 5. Start Backend API
+```sh
+python app.py
+```
+
+### 6. Run Frontend
+Open `index.html` in a web browser or start a local server:
+```sh
+cd frontend
+python -m http.server 8000
+```
+
+## Roadmap
+- [ ] Improve AI model accuracy with new features
+- [ ] Add user authentication for personalized insights
+- [ ] Integrate news sentiment analysis for better predictions
+- [ ] Deploy to a cloud server for live updates
+
+## Contribution
+Pull requests are welcome! Please open an issue to discuss changes before making a PR.
