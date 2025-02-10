@@ -28,9 +28,12 @@ def fetch_market_data():
     start_date = end_date - timedelta(days=365 * 5)  # 5 ans d'historique
 
     # Télécharger les données de Yahoo Finance
-    data = yf.download(list(tickers.values()), start=start_date, end=end_date, interval="1d")
-    data = data["Close"]
-    print(data)
+    raw_data = yf.download(list(tickers.values()), start=start_date, end=end_date, interval="1d")
+    data = raw_data["Close"]
+
+    #print(data.head())
+    #return
+
     # Renommer les colonnes avec les noms des indicateurs
     data.columns = tickers.keys()
 
@@ -52,7 +55,7 @@ def fetch_market_data():
             eur_usd=row["EUR/USD"],
             treasury_10y=row["US 10Y Treasury"],
             vix=row["VIX"],
-            is_abnormal=False  # Valeur par défaut, l'IA mettra à jour plus tard
+            is_abnormal=False
         )
 
     print("✅ Données du marché mises à jour avec succès !")
