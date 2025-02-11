@@ -12,36 +12,37 @@ def fetch_market_data():
     """
     get data from Yahoofinance and store it in the database.
     """
-    tickers = {
-        "S&P 500": "^GSPC",
-        "NASDAQ": "^IXIC",
-        "Dow Jones": "^DJI",
-        "Crude Oil": "CL=F",
-        "Gold": "GC=F",
-        "EUR/USD": "EURUSD=X",
-        "US 10Y Treasury": "^TNX",
-        "VIX": "^VIX"
+    column_map = {
+        "CL=F": "Crude Oil",
+        "EURUSD=X": "EUR/USD",
+        "GC=F": "Gold",
+        "^DJI": "Dow Jones",
+        "^GSPC": "S&P 500",
+        "^IXIC": "NASDAQ",
+        "^TNX": "US 10Y Treasury",
+        "^VIX": "VIX"
     }
 
-    # Définir la période de récupération des données
-    end_date = datetime.today()
-    start_date = end_date - timedelta(days=365 * 5)  # 5 ans d'historique
 
-    # Télécharger les données de Yahoo Finance
-    raw_data = yf.download(list(tickers.values()), start=start_date, end=end_date, interval="1d")
-    data = raw_data["Close"]
+
+    # dowload of the historic prices for selected indicator
+    end_date = datetime.today()
+    start_date = end_date - timedelta(days=365 * 5)
+    # selection of the "close" price for each selected indicator
+    data = yf.download(list(column_map.values()), start=start_date, end=end_date, interval="1d")["Close"]
 
     #print(data.head())
-    #return
+   # print("*************")
+    #print(data.columns)
 
     # Renommer les colonnes avec les noms des indicateurs
-    data.columns = tickers.keys()
+    data.rename(columns=column_map, inplace=True)
+   # print("*************")
+   # print(data.columns)
 
     # Supprimer les valeurs manquantes (NaN)
     data.dropna(inplace=True)
 
-    print("Colonnes récupérées :", data.columns)
-    print("Colonnes attendues :", list(tickers.keys()))
 
     # Ajouter chaque ligne dans la base de données Django
     for date, row in data.iterrows():
@@ -58,4 +59,4 @@ def fetch_market_data():
             is_abnormal=False
         )
 
-    print("✅ Données du marché mises à jour avec succès !")
+    print("✅ market data successfully updated !")
