@@ -43,7 +43,6 @@ def fetch_market_data():
     # Supprimer les valeurs manquantes (NaN)
     data.dropna(inplace=True)
 
-
     # Ajouter chaque ligne dans la base de données Django
     for date, row in data.iterrows():
         MarketData.objects.get_or_create(
