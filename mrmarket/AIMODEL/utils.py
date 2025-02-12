@@ -12,15 +12,15 @@ def fetch_market_data():
     """
     get data from Yahoofinance and store it in the database.
     """
-    column_map = {
-        "CL=F": "Crude Oil",
-        "EURUSD=X": "EUR/USD",
-        "GC=F": "Gold",
-        "^DJI": "Dow Jones",
-        "^GSPC": "S&P 500",
-        "^IXIC": "NASDAQ",
-        "^TNX": "US 10Y Treasury",
-        "^VIX": "VIX"
+    tickers = {
+        "crude_oil": "CL=F",
+        "eur_usd": "EURUSD=X",
+        "gold": "GC=F",
+        "dowjones": "^DJI",
+        "sp500": "^GSPC",
+        "nasdaq": "^IXIC",
+        "treasury_10y": "^TNX",
+        "vix": "^VIX"
     }
 
 
@@ -29,16 +29,16 @@ def fetch_market_data():
     end_date = datetime.today()
     start_date = end_date - timedelta(days=365 * 5)
     # selection of the "close" price for each selected indicator
-    data = yf.download(list(column_map.values()), start=start_date, end=end_date, interval="1d")["Close"]
+    data = yf.download(list(tickers.values()), start=start_date, end=end_date, interval="1d")["Close"]
 
     #print(data.head())
    # print("*************")
-    #print(data.columns)
+    print(data.columns)
 
     # Renommer les colonnes avec les noms des indicateurs
-    data.rename(columns=column_map, inplace=True)
+    data.rename(columns=tickers, inplace=True)
    # print("*************")
-   # print(data.columns)
+    print(data.columns)
 
     # Supprimer les valeurs manquantes (NaN)
     data.dropna(inplace=True)
@@ -47,14 +47,14 @@ def fetch_market_data():
     for date, row in data.iterrows():
         MarketData.objects.get_or_create(
             date=date,
-            sp500=row["S&P 500"],
-            nasdaq=row["NASDAQ"],
-            dowjones=row["Dow Jones"],
-            crude_oil=row["Crude Oil"],
-            gold=row["Gold"],
-            eur_usd=row["EUR/USD"],
-            treasury_10y=row["US 10Y Treasury"],
-            vix=row["VIX"],
+            sp500=row[tickers["sp500"]],
+            nasdaq=row[tickers["nasdaq"]],
+            dowjones=row[tickers["dowjones"]],
+            crude_oil=row[tickers["crude_oil"]],
+            gold=row[tickers["gold"]],
+            eur_usd=row[tickers["eur_usd"]],
+            treasury_10y=row[tickers["treasury_10y"]],
+            vix=row[tickers["vix"]],
             is_abnormal=False
         )
 
