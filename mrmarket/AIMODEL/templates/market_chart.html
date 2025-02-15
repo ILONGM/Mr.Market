@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Graphique du Marché</title>
+</head>
+<body>
+    <h1>Évolution du Marché</h1>
+
+    <!-- Sélecteur pour choisir la variable à tracer -->
+    <form method="GET">
+        <label for="variable">Choisir une variable :</label>
+        <select name="variable" id="variable" onchange="this.form.submit()">
+            {% for var in available_variables %}
+                <option value="{{ var }}" {% if var == selected_variable %}selected{% endif %}>
+                    {{ var.upper() }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <!-- Affichage du graphique -->
+    <img src="data:image/png;base64,{{ chart }}" alt="Graphique des données">
+</body>
+</html>

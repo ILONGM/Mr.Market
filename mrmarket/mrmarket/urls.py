@@ -1,3 +1,4 @@
+
 """
 URL configuration for mrmarket project.
 
@@ -16,7 +17,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from AIMODEL.views import plot_market_data
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index',)
+    path("market-chart/", plot_market_data, name="market_chart"),
+
 ]
