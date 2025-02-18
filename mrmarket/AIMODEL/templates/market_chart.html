@@ -13,7 +13,7 @@
         <select name="variable" id="variable" onchange="this.form.submit()">
             {% for var in available_variables %}
                 <option value="{{ var }}" {% if var == selected_variable %}selected{% endif %}>
-                    {{ var.upper() }}
+                    {{ var }}
                 </option>
             {% endfor %}
         </select>

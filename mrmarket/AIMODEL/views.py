@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from .models import MarketData
 
-
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io
 import urllib
+import pandas as pd
+import base64
 
 
 def homepage(request):
@@ -21,7 +24,7 @@ def plot_market_data(request):
 
     # Générer le graphique avec Matplotlib
     plt.figure(figsize=(10, 5))
-    plt.plot(data["date"], data[selected_variable], marker='o', linestyle='-', label=selected_variable.upper())
+    plt.plot(data["date"], data[selected_variable], marker='', linestyle='-', label=selected_variable.upper())
     plt.xlabel("Date")
     plt.ylabel(selected_variable.upper())
     plt.title(f"Évolution de {selected_variable.upper()}")
@@ -32,14 +35,15 @@ def plot_market_data(request):
     buf = io.BytesIO()
     plt.savefig(buf, format='png')
     buf.seek(0)
-    string = urllib.parse.quote(buf.read())
+    image_base64 = base64.b64encode(buf.read()).decode('utf-8')
+    #string = urllib.parse.quote(buf.read())
     buf.close()
 
     # Rendre la page HTML avec le graphique
     return render(request, "market_chart.html", {
-        "chart": string,
+        "chart": image_base64,
         "available_variables": available_variables,
-        "selected_variable": selected_variable
+        "selected_variable": selected_variable.upper()
     })
 
 # Create your views here.

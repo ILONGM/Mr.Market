@@ -16,13 +16,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from AIMODEL.views import plot_market_data
-
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index',)
-    path("market-chart/", plot_market_data, name="market_chart"),
+    path('',include("AIMODEL.urls")),
 
 ]
