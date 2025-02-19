@@ -4,6 +4,7 @@ def test_function():
 
 #imports required to create the fetch_function_data
 import yfinance as yf
+import time
 from datetime import datetime, timedelta
 from .models import MarketData
 
@@ -27,11 +28,13 @@ def fetch_market_data():
 
     # dowload of the historic prices for selected indicator
     end_date = datetime.today()
-    start_date = end_date - timedelta(days=365 * 10)
+    start_date = end_date - timedelta(days=365 * 5)
     # selection of the "close" price for each selected indicator
+
     data = yf.download(list(tickers.values()), start=start_date, end=end_date, interval="1d")["Close"]
 
-    #print(data.head())
+
+        #print(data.head())
    # print("*************")
     print(data.columns)
 
