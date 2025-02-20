@@ -85,3 +85,5 @@ def update_variations():
             entry.save()
 
         previous = entry
+
+    print("update successfull")
