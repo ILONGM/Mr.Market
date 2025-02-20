@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Distribution des Variations</title>
+</head>
+<body>
+    <h1>Distribution des Variations en %</h1>
+
+    <!-- Sélecteur pour choisir la variable -->
+    <form method="GET">
+        <label for="variable">Choisir une variable :</label>
+        <select name="variable" id="variable" onchange="this.form.submit()">
+            {% for var in available_variables %}
+                <option value="{{ var }}" {% if var == selected_variable %}selected{% endif %}>
+                    {{ var}}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if chart %}
+        <img src="data:image/png;base64,{{ chart }}" alt="Graphique de probabilité">
+    {% else %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</body>
+</html>
