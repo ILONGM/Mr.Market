@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Distribution des Variations</title>
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chart-container {
+            flex: 2;
+            text-align: center;
+        }
+        .stats-container {
+            flex: 1;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 10px;
+            margin-left: 20px;
+        }
+        .stats-container h2 {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Distribution des Variations en %</h1>
@@ -19,10 +40,24 @@
         </select>
     </form>
 
+     <!-- Statistiques -->
+        <div class="stats-container">
+            <h2>Statistiques</h2>
+            <p><strong>Moyenne (Mean) :</strong> {{ mean_value }}</p>
+            <p><strong>Médiane :</strong> {{ median_value }}</p>
+            <p><strong>Écart-Type (Sigma) :</strong> {{ std_dev }}</p>
+        </div>
+
+
     {% if chart %}
         <img src="data:image/png;base64,{{ chart }}" alt="Graphique de probabilité">
     {% else %}
         <p style="color: red;">{{ error }}</p>
     {% endif %}
+
+
+
+
+
 </body>
 </html>

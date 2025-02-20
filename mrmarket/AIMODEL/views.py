@@ -82,6 +82,10 @@ def plot_probability_distribution(request):
     # Extraire la colonne de variation
     variation_values = data[selected_variable]
 
+    mean_value = np.mean(variation_values)
+    median_value = np.median(variation_values)
+    std_dev = np.std(variation_values)
+
     # Créer un histogramme normalisé et une courbe de densité (PDF)
     plt.figure(figsize=(10, 5))
     sns.histplot(variation_values, kde=True, stat="density", bins=150, color="blue", alpha=0.6)
@@ -108,7 +112,10 @@ def plot_probability_distribution(request):
     return render(request, "probability_chart.html", {
         "chart": image_base64,
         "available_variables": available_variables,
-        "selected_variable": selected_variable.upper()
+        "selected_variable": selected_variable.upper(),
+        "mean_value": round(mean_value, 4),
+        "median_value": round(median_value, 4),
+        "std_dev": round(std_dev, 4)
     })
 
 # Create your views here.
