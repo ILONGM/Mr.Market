@@ -62,3 +62,26 @@ def fetch_market_data():
         )
 
     print("✅ market data successfully updated !")
+
+
+def update_variations():
+    """
+    Met à jour les variations en % pour chaque ligne de la base.
+    """
+    all_data = MarketData.objects.order_by("date")
+    previous = None
+
+    for entry in all_data:
+        if previous:
+            entry.variation_sp500 = ((entry.sp500 - previous.sp500) / previous.sp500) * 100 if previous.sp500 else None
+            entry.variation_nasdaq = ((entry.nasdaq - previous.nasdaq) / previous.nasdaq) * 100 if previous.nasdaq else None
+            entry.variation_dowjones = ((entry.dowjones - previous.dowjones) / previous.dowjones) * 100 if previous.dowjones else None
+            entry.variation_crude_oil = ((entry.crude_oil - previous.crude_oil) / previous.crude_oil) * 100 if previous.crude_oil else None
+            entry.variation_gold = ((entry.gold - previous.gold) / previous.gold) * 100 if previous.gold else None
+            entry.variation_eur_usd = ((entry.eur_usd - previous.eur_usd) / previous.eur_usd) * 100 if previous.eur_usd else None
+            entry.variation_treasury_10y = ((entry.treasury_10y - previous.treasury_10y) / previous.treasury_10y) * 100 if previous.treasury_10y else None
+            entry.variation_vix = ((entry.vix - previous.vix) / previous.vix) * 100 if previous.vix else None
+
+            entry.save()
+
+        previous = entry

@@ -14,5 +14,14 @@ class MarketData(models.Model):
     vix = models.FloatField()
     is_abnormal = models.BooleanField()
 
+    variation_sp500 = models.FloatField(null=True, blank=True)
+    variation_nasdaq = models.FloatField(null=True, blank=True)
+    variation_dowjones = models.FloatField(null=True, blank=True)
+    variation_crude_oil = models.FloatField(null=True, blank=True)
+    variation_gold = models.FloatField(null=True, blank=True)
+    variation_eur_usd = models.FloatField(null=True, blank=True)
+    variation_treasury_10y = models.FloatField(null=True, blank=True)
+    variation_vix = models.FloatField(null=True, blank=True)
+
     def __str__(self):
         return f"{self.date} - {'Abnormal' if self.is_abnormal else 'Normal'}"
