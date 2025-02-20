@@ -84,7 +84,7 @@ def plot_probability_distribution(request):
 
     # Créer un histogramme normalisé et une courbe de densité (PDF)
     plt.figure(figsize=(10, 5))
-    sns.histplot(variation_values, kde=True, stat="density", bins=30, color="blue", alpha=0.6)
+    sns.histplot(variation_values, kde=True, stat="density", bins=365, color="blue", alpha=0.6)
 
     # Superposer une courbe de distribution normale ajustée
     mean, std = np.mean(variation_values), np.std(variation_values)
