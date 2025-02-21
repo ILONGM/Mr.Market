@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from AIMODEL.models import MarketData
 
-def create_training_dataset():
+def create_dataset():
     """
     Récupère les données de la base et construit un dataset avec les variations et les indicateurs.
     """
